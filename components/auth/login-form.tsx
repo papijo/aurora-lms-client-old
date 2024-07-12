@@ -66,7 +66,7 @@ export const LoginForm = () => {
           dispatch(setAuthState(true));
         }
         // Add Redirect
-        router.push("/users");
+        router.push("/dashboard");
       })
       .catch((error) => {
         toast({

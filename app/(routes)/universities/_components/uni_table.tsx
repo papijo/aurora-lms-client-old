@@ -30,14 +30,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   ArrowLeft,
   ChevronLeft,
@@ -45,6 +38,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
+import Pagination from "@/components/pagination";
 
 type PaginationState = {
   pageSize: number;

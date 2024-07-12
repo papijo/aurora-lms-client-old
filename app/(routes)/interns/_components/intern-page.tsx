@@ -6,37 +6,38 @@ import { GetRequest } from "@/utils/helpers/request-methods";
 import { useAppSelector } from "@/utils/redux";
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
-import { Button } from "@/components/ui/button";
-
 import { InternCards } from "./intern-cards";
 import { InternTable } from "./intern_table";
+import { CreateIntern } from "./intern-create";
+import { usePagination } from "@/utils/helpers/table-pagination";
+import { useToast } from "@/components/ui/use-toast";
 
 const InternPage = () => {
   const accesstoken = useAppSelector((state) => state.auth.accesstoken);
   const router = useRouter();
   const [tableData, setTableData] = useState([]);
+  const { toast } = useToast();
+  const [totalCount, setTotalCount] = useState(0);
+
+  const { limit, onPaginationChange, page, pagination } = usePagination();
 
   useEffect(() => {
-    GetRequest("/intern/all", accesstoken)
+    GetRequest("/intern/all", accesstoken, { page, limit })
       .then((data) => {
         setTableData(data.data.interns);
-        console.log(data.data.interns);
+        setTotalCount(data.data.totalCount);
+        console.log("Page Count", data.data.totalCount);
       })
       .catch((error) => {
-        if (
-          error?.response?.data?.message === "ExpiredAccessToken" ||
-          error?.response?.data?.message === "MissingAccessToken"
-        ) {
-          router.push("/");
-        } else {
-          console.log("Error fetching data:", error);
-        }
+        toast({
+          title: "Error",
+          description: error?.response?.data?.message,
+          variant: "destructive",
+        });
       });
-  }, [accesstoken, router]);
+  }, [accesstoken, limit, page, toast]);
 
-  const CreateUser = () => {
-    router.push("/user/create");
-  };
+  const pageCount = Math.ceil(totalCount / limit);
 
   return (
     <div className="flex-col">
@@ -54,10 +55,14 @@ const InternPage = () => {
           <InternCards />
         </div>
         <div>
-          <Button onClick={CreateUser} className="mt-5">
-            Create New Intern
-          </Button>
-          <InternTable columns={columns} data={tableData} />
+          <CreateIntern />
+          <InternTable
+            columns={columns}
+            data={tableData}
+            pageCount={pageCount}
+            pagination={pagination}
+            onPaginationChange={onPaginationChange}
+          />
         </div>
       </div>
     </div>

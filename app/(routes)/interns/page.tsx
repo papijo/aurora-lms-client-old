@@ -1,7 +1,7 @@
 import React from "react";
 import InternPage from "./_components/intern-page";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <InternPage />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

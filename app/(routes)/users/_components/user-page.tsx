@@ -7,7 +7,6 @@ import { columns } from "./columns";
 import { GetRequest } from "@/utils/helpers/request-methods";
 import { useAppSelector } from "@/utils/redux";
 import { useRouter } from "next/navigation";
-import { Header } from "@/components/auth/header";
 import { Heading } from "@/components/heading";
 import { Button } from "@/components/ui/button";
 import withAuth from "@/hooks/with-auth";

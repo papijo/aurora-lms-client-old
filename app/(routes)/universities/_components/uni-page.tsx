@@ -10,6 +10,7 @@ import { columns } from "./columns";
 import { UniTable } from "./uni_table";
 import { CreateUniversity } from "./uni-create";
 import { usePagination } from "@/utils/helpers/table-pagination";
+import withAuth from "@/hooks/with-auth";
 
 // Create University
 
@@ -37,8 +38,7 @@ const UniPage = () => {
   }, [accesstoken, limit, page, toast]);
 
   const pageCount = Math.ceil(totalCount / limit);
-  console.log("Limit: ", limit);
-  console.log("Page Count", pageCount);
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
@@ -67,4 +67,4 @@ const UniPage = () => {
   );
 };
 
-export default UniPage;
+export default withAuth(UniPage);

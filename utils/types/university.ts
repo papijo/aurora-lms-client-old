@@ -16,3 +16,8 @@ export enum UniversityTypes {
   private = "Private",
   public = "Public",
 }
+
+export enum Lab {
+  acdc = "AC DC Lab",
+  automation = "Mechatronics Automation Lab",
+}

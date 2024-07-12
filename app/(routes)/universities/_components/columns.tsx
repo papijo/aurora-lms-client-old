@@ -8,9 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { University } from "@/utils/types/university";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ViewUniversity } from "./uni-view";
+import { EditUniversity } from "./uni-edit";
+import { DeleteUniversity } from "./uni-delete";
 
 export const columns: ColumnDef<unknown, unknown>[] = [
   {
@@ -36,6 +38,20 @@ export const columns: ColumnDef<unknown, unknown>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
     accessorKey: "name",
     header: ({ column }) => {
       return (
@@ -52,6 +68,10 @@ export const columns: ColumnDef<unknown, unknown>[] = [
   {
     accessorKey: "type",
     header: "Type",
+  },
+  {
+    accessorKey: "internCount",
+    header: "Intern Count",
   },
   {
     accessorKey: "state",
@@ -81,10 +101,26 @@ export const columns: ColumnDef<unknown, unknown>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>View University</DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <ViewUniversity
+                name={row.getValue("name")}
+                type={row.getValue("type")}
+                state={row.getValue("state")}
+                internCount={row.getValue("internCount")}
+              />
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit University</DropdownMenuItem>
-            <DropdownMenuItem>Delete University</DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <EditUniversity
+                id={row.getValue("id")}
+                name={row.getValue("name")}
+                type={row.getValue("type")}
+                state={row.getValue("state")}
+              />
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <DeleteUniversity id={row.getValue("id")} />
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

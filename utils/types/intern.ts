@@ -1,3 +1,5 @@
+import { University } from "./university";
+
 export interface Interns {
   totalCount: number;
   activeInternCount: number;
@@ -15,4 +17,5 @@ export interface Intern {
   laboratory: string;
   startDate: string;
   endDate: string;
+  university: University;
 }

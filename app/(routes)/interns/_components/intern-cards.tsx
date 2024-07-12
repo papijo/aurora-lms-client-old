@@ -17,8 +17,6 @@ export const InternCards = () => {
   useEffect(() => {
     GetRequest("/intern/all", accesstoken)
       .then((data) => {
-        console.log("Intern Data: ", data.data);
-
         setInternData(data.data);
       })
       .catch((error: any) => {

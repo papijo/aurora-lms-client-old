@@ -14,6 +14,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Intern } from "@/utils/types/intern";
 import { FormatDate } from "@/utils/helpers/date";
+import { ViewIntern } from "./intern-view";
+import { EditIntern } from "./intern-edit";
 
 export const columns: ColumnDef<Intern>[] = [
   {
@@ -53,10 +55,6 @@ export const columns: ColumnDef<Intern>[] = [
     },
   },
   {
-    accessorKey: "phonenumber",
-    header: "Phone Number",
-  },
-  {
     accessorKey: "email",
     header: ({ column }) => {
       return (
@@ -77,6 +75,10 @@ export const columns: ColumnDef<Intern>[] = [
   {
     accessorKey: "laboratory",
     header: "Laboratory",
+  },
+  {
+    accessorKey: "university.name",
+    header: "University",
   },
   {
     accessorKey: "startDate",
@@ -108,27 +110,26 @@ export const columns: ColumnDef<Intern>[] = [
     },
     cell: ({ row }) => FormatDate(row.original.endDate),
   },
-  // {
-  //   accessorKey: "phonenumber",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Phone Number
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "phonenumber",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Phone Number
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
   {
     header: () => <div className="text-right">Actions</div>,
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original;
-
       return (
+        // Refer to University
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
@@ -138,9 +139,33 @@ export const columns: ColumnDef<Intern>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>View Intern</DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <ViewIntern
+                name={row.getValue("name")}
+                university={row.original?.university?.name}
+                email={row.getValue("email")}
+                lab={row.getValue("laboratory")}
+                phonenumber={row.getValue("phonenumber")}
+                startDate={FormatDate(row.original.startDate)}
+                endDate={FormatDate(row.original.endDate)}
+                status={row.original.status}
+              />
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit Intern</DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <EditIntern
+                id={row.original.id}
+                name={row.getValue("name")}
+                universityId={row.original?.university?.id}
+                email={row.original.email}
+                lab={row.getValue("laboratory")}
+                phonenumber={row.getValue("phonenumber")}
+                startDate={new Date(row.original.startDate)}
+                endDate={new Date(row.original.endDate)}
+                status={row.original.status}
+                uniName={row.original?.university?.name}
+              />
+            </DropdownMenuItem>
             <DropdownMenuItem>Delete Intern</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

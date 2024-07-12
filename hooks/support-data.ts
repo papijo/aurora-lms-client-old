@@ -11,23 +11,20 @@ import {
   LogOut,
   SquareUser,
   School,
+  Building,
+  ShieldCheck,
 } from "lucide-react";
 
 const sidebarRoutes = [
   {
     icon: Layout,
     label: "Dashboard",
-    href: "/",
+    href: "/dashboard",
   },
-  // {
-  //   icon: Compass,
-  //   label: "Browse",
-  //   href: "/search",
-  // },
   {
-    icon: Folders,
-    label: "Courses",
-    href: "/courses",
+    icon: Building,
+    label: "Organisation",
+    href: "/",
   },
   {
     icon: Users,
@@ -35,9 +32,9 @@ const sidebarRoutes = [
     href: "/users",
   },
   {
-    icon: SquareUser,
-    label: "Interns",
-    href: "/interns",
+    icon: ShieldCheck,
+    label: "Roles & Access",
+    href: "/",
   },
 
   {
@@ -45,24 +42,39 @@ const sidebarRoutes = [
     label: "Universities",
     href: "/universities",
   },
+  // {
+  //   icon: Compass,
+  //   label: "Browse",
+  //   href: "/search",
+  // },
+  // {
+  //   icon: Folders,
+  //   label: "Courses",
+  //   href: "/courses",
+  // },
+  // {
+  //   icon: SquareUser,
+  //   label: "Interns",
+  //   href: "/interns",
+  // },
 
-  {
-    icon: Settings,
-    label: "Settings",
-    href: "/settings",
-  },
+  // {
+  //   icon: Settings,
+  //   label: "Settings",
+  //   href: "/settings",
+  // },
 
-  {
-    icon: MessagesSquare,
-    label: "Messages",
-    href: "/messages",
-  },
+  // {
+  //   icon: MessagesSquare,
+  //   label: "Messages",
+  //   href: "/messages",
+  // },
 
-  {
-    icon: BanknoteIcon,
-    label: "Audit Trail",
-    href: "/audit-trail",
-  },
+  // {
+  //   icon: BanknoteIcon,
+  //   label: "Audit Trail",
+  //   href: "/audit-trail",
+  // },
 
   {
     icon: LogOut,

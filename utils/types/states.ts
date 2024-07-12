@@ -1,5 +1,6 @@
 export enum States {
   abia = "Abia",
+  abuja = "Abuja",
   adamawa = "Adamawa",
   akwaIbom = "Akwa Ibom",
   anambra = "Anambra",
