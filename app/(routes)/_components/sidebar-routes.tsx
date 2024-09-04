@@ -1,15 +1,14 @@
 "use client";
 
-import { sidebarRoutes } from "@/hooks/support-data";
+import { sidebarRoutes } from "@/hooks/side-bar-data";
 import { SidebarItem } from "./sidebar-item";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
 
 // Get User ID
 
 export const SidebarRoutes = () => {
-  const pathname = usePathname();
-  console.log(pathname);
+  // const pathname = usePathname();
 
   return (
     <div className="flex flex-col justify-content: flex-end">

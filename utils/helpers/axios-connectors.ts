@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:4790/lms/api/v1";
+export const BASE_URL = "http://localhost:4590/api/v1";
 
 // Public Request
 export const PublicRequest = axios.create({

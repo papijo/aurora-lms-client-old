@@ -7,7 +7,7 @@ export const Sidebar = () => {
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm justify-items-end">
       <div className="p-6">
-        <Logo />
+        <h1 className="text-3xl font-bold">MSTC</h1>
       </div>
       <div className="flex flex-col w-full">
         <SidebarRoutes />

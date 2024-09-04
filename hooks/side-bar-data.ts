@@ -34,7 +34,7 @@ const sidebarRoutes = [
   {
     icon: ShieldCheck,
     label: "Roles & Access",
-    href: "/",
+    href: "/roles",
   },
 
   {

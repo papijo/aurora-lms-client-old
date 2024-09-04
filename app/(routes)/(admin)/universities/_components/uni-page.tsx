@@ -1,20 +1,21 @@
 "use client";
+import { Heading } from "@/components/heading";
 import { Separator } from "@/components/ui/separator";
 import React, { useEffect, useState } from "react";
-import { columns } from "./columns";
-import { GetRequest } from "@/utils/helpers/request-methods";
+import UniCards from "./uni-cards";
 import { useAppSelector } from "@/utils/redux";
-import { useRouter } from "next/navigation";
-import { Heading } from "@/components/heading";
-import { InternCards } from "./intern-cards";
-import { InternTable } from "./intern_table";
-import { CreateIntern } from "./intern-create";
-import { usePagination } from "@/utils/helpers/table-pagination";
+import { GetRequest } from "@/utils/helpers/request-methods";
 import { useToast } from "@/components/ui/use-toast";
+import { columns } from "./columns";
+import { UniTable } from "./uni_table";
+import { CreateUniversity } from "./uni-create";
+import { usePagination } from "@/utils/helpers/table-pagination";
+import withAuth from "@/hooks/with-auth";
 
-const InternPage = () => {
+// Create University
+
+const UniPage = () => {
   const accesstoken = useAppSelector((state) => state.auth.accesstoken);
-  const router = useRouter();
   const [tableData, setTableData] = useState([]);
   const { toast } = useToast();
   const [totalCount, setTotalCount] = useState(0);
@@ -22,11 +23,10 @@ const InternPage = () => {
   const { limit, onPaginationChange, page, pagination } = usePagination();
 
   useEffect(() => {
-    GetRequest("/intern/all", accesstoken, { page, limit })
-      .then((data) => {
-        setTableData(data.data.interns);
-        setTotalCount(data.data.totalCount);
-        console.log("Page Count", data.data.totalCount);
+    GetRequest("/university", accesstoken, { page, limit })
+      .then((res) => {
+        setTableData(res.data.universities);
+        setTotalCount(res.data.count);
       })
       .catch((error) => {
         toast({
@@ -42,26 +42,24 @@ const InternPage = () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        {/* Create Heading Component */}
-        <Heading
-          title="Intern Management Module"
-          description="Manage all interns from here"
-        />
-        {/* <h1>User Management Module</h1> */}
+        <Heading title="University" description="Manage University Profiles" />
+
         <div>
           <Separator />
         </div>
+
         <div>
-          <InternCards />
+          <UniCards />
         </div>
+
         <div>
-          <CreateIntern />
-          <InternTable
-            columns={columns}
+          <CreateUniversity />
+          <UniTable
             data={tableData}
+            columns={columns}
             pageCount={pageCount}
-            pagination={pagination}
             onPaginationChange={onPaginationChange}
+            pagination={pagination}
           />
         </div>
       </div>
@@ -69,4 +67,4 @@ const InternPage = () => {
   );
 };
 
-export default InternPage;
+export default UniPage;
